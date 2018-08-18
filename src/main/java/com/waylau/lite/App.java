@@ -1,4 +1,4 @@
-package com.waylau.smm;
+package com.waylau.lite;
 
 /**
  * Hello world!
