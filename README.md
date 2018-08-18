@@ -18,6 +18,10 @@ Lite is a lightweight Java Web framework, based on Spring, MyBatis and MySQL.
 * MySQL Connector/J 8.0.11
 * MySQL 8.0.11
 
+## Docs 文档
+
+* feat-add-jetty-server : [添加Sevlet容器](docs/feat-add-jetty-server.md)
+
 ## Reference Documentation 参考文献
 
 * https://junit.org/junit5/docs/current/user-guide
