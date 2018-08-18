@@ -32,7 +32,8 @@ public class CommandLineArgs {
 	}
 	
 	public Integer getIntArg(String argName) {
-		return Integer.valueOf(this.getArg(argName));
+		String argValue = this.getArg(argName);
+		return argValue == null ? null : Integer.valueOf(argValue);
 	}
 
 }
