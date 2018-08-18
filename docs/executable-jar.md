@@ -31,5 +31,5 @@
 ## 运行
 
 ```
-java -jar lite-1.0.0.jar --port=8081
+java -jar target/lite-1.0.0.jar --port=8081
 ```
