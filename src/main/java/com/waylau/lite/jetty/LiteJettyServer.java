@@ -31,14 +31,12 @@ public class LiteJettyServer implements LiteServer {
 
 	private static final String CONTEXT_PATH = "/";
 	private static final String MAPPING_URL = "/*";
-	private static final int PORT = 8080;
 	private static final String PORT_NAME = "port";
-	private int port;
-
+	private static final int PORT = 8080;
+	
 	@Override
 	public void run() {
-		this.port = PORT;
-		this.run(this.port);
+		this.run(PORT);
 	}
 
 	@Override
@@ -67,7 +65,7 @@ public class LiteJettyServer implements LiteServer {
 			throw new LiteRuntimeException("Lite started exception!", e);
 		}
 
-		logger.info("SSM start at {}", this.port);
+		logger.info("SSM start at {}", port);
 
 		try {
 			server.join();
