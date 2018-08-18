@@ -44,13 +44,19 @@ public class LiteJettyServer implements LiteServer {
 	@Override
 	public void run(String[] args) {
 		CommandLineArgs commandLineArgs = CommandLineArgsParser.parse(args);
-		this.port = commandLineArgs.getIntArg(PORT_NAME);
-		this.run(port);
+		Integer port = commandLineArgs.getIntArg(PORT_NAME);
+		
+		// 判断是否通过命令行传port
+		if (port == null) {
+			this.run();
+		} else {
+			this.run(port);
+		}
+
 	}
 
 	@Override
 	public void run(int port) {
-
 		Server server = new Server(port);
 		server.setHandler(this.servletContextHandler(this.webApplicationContext()));
 
