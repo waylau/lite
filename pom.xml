@@ -26,6 +26,7 @@
 		<logback-classic.version>1.2.3</logback-classic.version>
 		<junit.version>5.2.0</junit.version>
 		<maven-compiler-plugin.version>3.8.0</maven-compiler-plugin.version>
+		<maven-shade-plugin.version>3.1.1</maven-shade-plugin.version>
 	</properties>
 
 	<dependencies>
@@ -94,6 +95,28 @@
 					<source>1.8</source> <!-- 源代码使用的开发版本 -->
 					<target>1.8</target>  <!-- 需要生成的目标class文件的编译版本 -->
 				</configuration>
+			</plugin>
+			<!-- 可执行的jar插件 -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-shade-plugin</artifactId>
+				<version>${maven-shade-plugin.version}</version>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>shade</goal>
+						</goals>
+						<configuration>
+							<transformers>
+								<transformer
+									implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+									<mainClass>com.waylau.lite.App</mainClass>
+								</transformer>
+							</transformers>
+						</configuration>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 
