@@ -1,4 +1,4 @@
-# 添加Sevlet容器
+# 添加Servlet容器
 
 * 使用内嵌 Jetty 的方式。
 * Spring 与  Jetty 整合。
