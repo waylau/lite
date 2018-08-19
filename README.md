@@ -24,6 +24,7 @@ Lite is a lightweight Java Web framework, based on Spring, MyBatis and MySQL.
 * feat-add-jetty-server : [添加Sevlet容器](docs/feat-add-jetty-server.md)
 * executable-jar : [可执行的 jar](docs/executable-jar.md)
 * feat-rest-api:[支持REST API](docs/feat-rest-api.md)
+* feat-unit-test:[支持JUnit5测试](docs/feat-unit-test.md)
 
 ## Reference Documentation 参考文献
 
