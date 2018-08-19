@@ -5,6 +5,9 @@ package com.waylau.lite;
 
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
+
+import com.waylau.lite.mvc.MvcConfig;
 
 /**
  * App Configuration.
@@ -14,6 +17,7 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 @ComponentScan(basePackages = { "com.waylau.lite" })  
+@Import({MvcConfig.class})
 public class AppConfig {
 
 }
