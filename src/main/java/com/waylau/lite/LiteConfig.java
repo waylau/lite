@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Import;
 import com.waylau.lite.mvc.MvcConfig;
 
 /**
- * App Configuration.
+ * Lite Configuration.
  * 
  * @since 1.0.0 2018年8月18日
  * @author <a href="https://waylau.com">Way Lau</a> 
@@ -18,6 +18,6 @@ import com.waylau.lite.mvc.MvcConfig;
 @Configuration
 @ComponentScan(basePackages = { "com.waylau.lite" })  
 @Import({MvcConfig.class})
-public class AppConfig {
+public class LiteConfig {
 
 }

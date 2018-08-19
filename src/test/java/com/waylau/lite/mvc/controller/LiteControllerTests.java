@@ -16,14 +16,14 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-import com.waylau.lite.AppConfig;
+import com.waylau.lite.LiteConfig;
 /**
  * LiteController Tests.
  * 
  * @since 1.0.0 2018年8月19日
  * @author <a href="https://waylau.com">Way Lau</a> 
  */
-@SpringJUnitWebConfig(classes = AppConfig.class)
+@SpringJUnitWebConfig(classes = LiteConfig.class)
 class LiteControllerTests {
 	
     private MockMvc mockMvc;

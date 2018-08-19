@@ -13,7 +13,7 @@ import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 import org.springframework.web.servlet.DispatcherServlet;
 
-import com.waylau.lite.AppConfig;
+import com.waylau.lite.LiteConfig;
 import com.waylau.lite.LiteServer;
 import com.waylau.lite.exception.LiteRuntimeException;
 import com.waylau.lite.util.CommandLineArgs;
@@ -33,7 +33,15 @@ public class LiteJettyServer implements LiteServer {
 	private static final String MAPPING_URL = "/*";
 	private static final String PORT_NAME = "port";
 	private static final int PORT = 8080;
+	private Class<?> annotatedClass;
 	
+	public LiteJettyServer() {
+	}
+	
+	public LiteJettyServer(Class<?> annotatedClass) {
+		this.annotatedClass = annotatedClass;
+	}
+
 	@Override
 	public void run() {
 		this.run(PORT);
@@ -86,7 +94,12 @@ public class LiteJettyServer implements LiteServer {
 
 	private WebApplicationContext webApplicationContext() {
 		AnnotationConfigWebApplicationContext context = new AnnotationConfigWebApplicationContext();
-		context.register(AppConfig.class);
+		context.register(LiteConfig.class);
+		
+		if (this.annotatedClass != null) {
+			context.register(this.annotatedClass); // 支持外部上下文
+		}
+
 		return context;
 	}
 
