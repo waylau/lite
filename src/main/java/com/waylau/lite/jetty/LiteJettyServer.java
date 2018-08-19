@@ -65,7 +65,7 @@ public class LiteJettyServer implements LiteServer {
 			throw new LiteRuntimeException("Lite started exception!", e);
 		}
 
-		logger.info("SSM start at {}", port);
+		logger.info("Lite start at {}", port);
 
 		try {
 			server.join();
