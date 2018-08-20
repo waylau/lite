@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/beans 
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context 
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/tx 
+        http://www.springframework.org/schema/tx/spring-tx.xsd
+        http://www.springframework.org/schema/aop  
+        http://www.springframework.org/schema/aop/spring-aop.xsd">
+        
+	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+	    <property name="locations" value="classpath:lite.properties"/>
+	</bean>
+
+	<!-- 数据原 -->
+	<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
+	    <property name="driverClassName" value="${lite.jdbc.driverClassName}" />
+	    <property name="url" value="${lite.jdbc.url}" />
+	    <property name="username" value="${lite.jdbc.username}" />
+	    <property name="password" value="${lite.jdbc.password}" />
+	</bean>
+
+	<!-- 事务管理 -->
+	<bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+	    <property name="dataSource" ref="dataSource"/>
+	</bean>
+
+    <!-- 事务dvice -->
+    <tx:advice id="txAdvice" transaction-manager="txManager">
+        <tx:attributes>
+			<!--get,find,list开头的方法设置为“只读” -->
+            <tx:method name="get*" read-only="true" propagation="NOT_SUPPORTED" />
+            <tx:method name="find*" read-only="true" propagation="NOT_SUPPORTED" />
+            <tx:method name="list*" read-only="true" propagation="NOT_SUPPORTED" />
+            
+	<!--其余方法使用默认事务 -->
+    <tx:method name="*" propagation="REQUIRED"/>
+        </tx:attributes>
+    </tx:advice>
+
+	<!--配置 事务dvice -->
+    <aop:config>
+        <aop:pointcut id="serviceOperation" expression="execution(* com..service.*.*(..)) || execution(* org..service.*.*(..))"/>
+        <aop:advisor advice-ref="txAdvice" pointcut-ref="serviceOperation"/>
+    </aop:config>
+    
+    <!-- MyBatis 工厂 -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+	    <property name="dataSource" ref="dataSource" />
+	</bean>
+</beans>

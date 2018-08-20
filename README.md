@@ -13,13 +13,16 @@ Lite is a lightweight Java Web framework, based on Spring, MyBatis and MySQL.
 
 * Spring Framework 5.0.8.RELEASE
 * Spring Web MVC 5.0.8.RELEASE
-* Mybatis 3.4.5
-* Mybatis Spring 1.3.2
 * JUnit 5.2.0
-* MySQL Connector/J 8.0.12
-* MySQL 8.0.11
 * JsonPath 2.4.0
 * Hamcrest Core 1.3
+* Spring JDBC 5.0.8.RELEASE
+* Spring Aspects 5.0.8.RELEASE
+* Mybatis 3.4.5
+* Mybatis Spring 1.3.2
+* MySQL Connector/J 8.0.12
+* Apache Commons DBCP 2.5.0
+* MySQL 8.0.12
 
 ## Docs 文档
 
@@ -28,12 +31,14 @@ Lite is a lightweight Java Web framework, based on Spring, MyBatis and MySQL.
 * feat-rest-api:[支持REST API](docs/feat-rest-api.md)
 * feat-unit-test:[支持JUnit5测试](docs/feat-unit-test.md)
 * feat-register-application-context：[支持传入外部上下文](docs/feat-register-application-context.md)
+* feat-data-access：[数据访问层的实现](docs/feat-data-access.md)
 
 ## Reference Documentation 参考文献
 
 * https://junit.org/junit5/docs/current/user-guide
-* http://www.mybatis.org/mybatis-3/
 * http://maven.apache.org/plugins/maven-shade-plugin/examples/executable-jar.html
+* http://www.mybatis.org/mybatis-3/
+* http://www.mybatis.org/spring/
 
 ## Issue 意见、建议
 
