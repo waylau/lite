@@ -23,6 +23,10 @@ Lite is a lightweight Java Web framework, based on Spring, MyBatis and MySQL.
 * MySQL Connector/J 8.0.12
 * Apache Commons DBCP 2.5.0
 * MySQL 8.0.12
+* Eclipse Jetty 9.4.11.v20180605
+* Jackson JSON 2.9.6
+* Servlet 4.0.0
+* Logback 1.2.3
 
 ## Docs 文档
 
