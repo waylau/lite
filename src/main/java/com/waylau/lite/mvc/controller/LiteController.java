@@ -18,7 +18,7 @@ import com.waylau.lite.Lite;
 @RequestMapping("/lite")
 public class LiteController {
 	
-	@GetMapping("/hi")
+	@GetMapping
 	public Lite sayHi() {
 		return new Lite("waylau.com", "1.0.0");
 	}
