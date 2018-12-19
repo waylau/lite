@@ -35,10 +35,11 @@ class LiteControllerTests {
 
 	@Test
 	void testSayHi() throws Exception {
-        this.mockMvc.perform(get("/lite/hi")
+        this.mockMvc.perform(get("/lite")
                 .accept(MediaType.parseMediaType("application/json;charset=UTF-8")))
             .andExpect(status().isOk())
             .andExpect(content().contentType("application/json;charset=UTF-8"))
-            .andExpect(jsonPath("$.author").isNotEmpty());
+            .andExpect(jsonPath("$.version").isNotEmpty())
+            .andExpect(jsonPath("$.author").value("waylau.com"));
 	}
 }

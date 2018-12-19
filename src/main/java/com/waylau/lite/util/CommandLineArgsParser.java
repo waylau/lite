@@ -28,11 +28,13 @@ public class CommandLineArgsParser {
 				String argValue = null;
 				if (argText.contains("=")) {
 					argName = argText.substring(0, argText.indexOf("="));
-					argValue = argText.substring(argText.indexOf("=") + 1, argText.length());
+					argValue = argText.substring(argText.indexOf("=") + 1, 
+							argText.length());
 				} else {
 					argName = argText;
 				}
-				if (argName.isEmpty() || (argValue != null && argValue.isEmpty())) {
+				if (argName.isEmpty() 
+						|| (argValue != null && argValue.isEmpty())) {
 					throw new IllegalArgumentException("Invalid argument syntax: " + arg);
 				}
 				commandLineArgs.addArg(argName, argValue);

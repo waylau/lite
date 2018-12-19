@@ -3,7 +3,12 @@
  */
 package com.waylau.lite.jetty;
 
+import java.util.EnumSet;
+
+import javax.servlet.DispatcherType;
+
 import org.eclipse.jetty.server.Server;
+import org.eclipse.jetty.servlet.FilterHolder;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
 import org.slf4j.Logger;
@@ -11,6 +16,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.context.ContextLoaderListener;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
+import org.springframework.web.filter.DelegatingFilterProxy;
 import org.springframework.web.servlet.DispatcherServlet;
 
 import com.waylau.lite.LiteConfig;
@@ -84,13 +90,24 @@ public class LiteJettyServer implements LiteServer {
 
 	}
 
-	private ServletContextHandler servletContextHandler(WebApplicationContext context) {
-		ServletContextHandler handler = new ServletContextHandler();
-		handler.setContextPath(CONTEXT_PATH);
-		handler.addServlet(new ServletHolder(new DispatcherServlet(context)), MAPPING_URL);
-		handler.addEventListener(new ContextLoaderListener(context));
-		return handler;
-	}
+    private ServletContextHandler servletContextHandler(WebApplicationContext ct) {
+    	// 启用Session管理器
+        ServletContextHandler handler = 
+        		new ServletContextHandler(ServletContextHandler.SESSIONS);
+        
+        handler.setContextPath(CONTEXT_PATH);
+        handler.addServlet(new ServletHolder(new DispatcherServlet(ct)), 
+        		MAPPING_URL);
+        handler.addEventListener(new ContextLoaderListener(ct));
+        
+        // 添加Spring Security过滤器
+        FilterHolder filterHolder=new FilterHolder(DelegatingFilterProxy.class);
+        filterHolder.setName("springSecurityFilterChain"); 
+        handler.addFilter(filterHolder, MAPPING_URL, 
+        		EnumSet.of(DispatcherType.REQUEST));
+        
+        return handler;
+    }
 
 	private WebApplicationContext webApplicationContext() {
 		AnnotationConfigWebApplicationContext context = new AnnotationConfigWebApplicationContext();

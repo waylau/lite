@@ -11,9 +11,9 @@ Lite is a lightweight Java Web framework, based on Spring, MyBatis and MySQL.
 
 ## Technology involved 涉及技术
 
-* Spring Framework 5.0.8.RELEASE
-* Spring Web MVC 5.0.8.RELEASE
-* JUnit 5.2.0
+* Spring Framework Spring 5.1.3.RELEASE
+* Spring Web MVC Spring 5.1.3.RELEASE
+* JUnit 5.3.2
 * JsonPath 2.4.0
 * Hamcrest Core 1.3
 * Spring JDBC 5.0.8.RELEASE
@@ -24,9 +24,10 @@ Lite is a lightweight Java Web framework, based on Spring, MyBatis and MySQL.
 * Apache Commons DBCP 2.5.0
 * MySQL 8.0.12
 * Eclipse Jetty 9.4.11.v20180605
-* Jackson JSON 2.9.6
-* Servlet 4.0.0
+* Jackson JSON 2.9.7
+* Servlet 4.0.1
 * Logback 1.2.3
+* Spring Security 5.2.0.BUILD-SNAPSHOT
 
 ## Docs 文档
 
