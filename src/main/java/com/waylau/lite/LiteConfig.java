@@ -8,9 +8,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.ImportResource;
 
-import com.waylau.lite.aop.AopConfig;
-import com.waylau.lite.mvc.MvcConfig;
-import com.waylau.lite.mvc.security.WebSecurityConfig;
+import com.waylau.lite.aop.LiteAopConfig;
+import com.waylau.lite.mvc.LiteMvcConfig;
+import com.waylau.lite.security.LiteSecurityConfig;
 
 /**
  * Lite Configuration.
@@ -20,7 +20,7 @@ import com.waylau.lite.mvc.security.WebSecurityConfig;
  */
 @Configuration
 @ComponentScan(basePackages = { "com.waylau.lite" })  
-@Import({MvcConfig.class, AopConfig.class, WebSecurityConfig.class})
+@Import({LiteMvcConfig.class, LiteAopConfig.class, LiteSecurityConfig.class})
 @ImportResource("classpath*:*spring.xml")
 public class LiteConfig {
 
