@@ -3,17 +3,51 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>com.waylau.lite</groupId>
+	<groupId>com.waylau</groupId>
 	<artifactId>lite</artifactId>
 	<version>1.0.0</version>
 	<packaging>jar</packaging>
 
-	<name>lite</name>
+	<name>${project.groupId}:${project.artifactId}</name>
+	<description>Lite is a lightweight Java Web framework, based on Spring and MyBatis.
+	</description>
 	<url>https://github.com/waylau/lite</url>
 	<organization>
 		<name>Way Lau</name>
 		<url>https://waylau.com</url>
 	</organization>
+
+	<licenses>
+		<license>
+			<name>MIT License</name>
+			<url>http://www.opensource.org/licenses/mit-license.php</url>
+		</license>
+	</licenses>
+
+	<scm>
+		<connection>scm:git:git://github.com/waylau/lite.git</connection>
+		<developerConnection>scm:git:ssh://github.com:waylau/lite.git</developerConnection>
+		<url>http://github.com/waylau/lite/tree/master</url>
+	</scm>
+
+	<developers>
+		<developer>
+			<id>waylau</id>
+			<name>Way Lau</name>
+			<email>waylau521@gmall.com</email>
+		</developer>
+	</developers>
+
+	<distributionManagement>
+		<snapshotRepository>
+			<id>ossrh</id>
+			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
+		</snapshotRepository>
+		<repository>
+			<id>ossrh</id>
+			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2</url>
+		</repository>
+	</distributionManagement>
 
 	<repositories>
 		<repository>
@@ -22,11 +56,15 @@
 			<url>https://repo.spring.io/snapshot</url>
 		</repository>
 	</repositories>
-	
+
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven-compiler-plugin.version>3.8.0</maven-compiler-plugin.version>
 		<maven-shade-plugin.version>3.2.1</maven-shade-plugin.version>
+		<maven-gpg-plugin.version>1.6</maven-gpg-plugin.version>
+		<nexus-staging-maven-plugin.version>1.6.8</nexus-staging-maven-plugin.version>
+		<maven-source-plugin.version>3.0.1</maven-source-plugin.version>
+		<maven-javadoc-plugin.version>3.0.1</maven-javadoc-plugin.version>
 		<java.version>1.8</java.version>
 		<jetty.version>9.4.14.v20181114</jetty.version>
 		<spring.version>5.1.3.RELEASE</spring.version>
@@ -69,7 +107,7 @@
 			<artifactId>spring-aspects</artifactId>
 			<version>${spring.version}</version>
 		</dependency>
-		
+
 		<!-- 数据库相关的依赖 -->
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -103,14 +141,14 @@
 			<artifactId>spring-security-config</artifactId>
 			<version>${spring-security.version}</version>
 		</dependency>
-		
+
 		<!-- 日志相关 -->
 		<dependency>
 			<groupId>ch.qos.logback</groupId>
 			<artifactId>logback-classic</artifactId>
 			<version>${logback-classic.version}</version>
 		</dependency>
-		
+
 		<!-- 测试相关的依赖 -->
 		<dependency>
 			<groupId>org.apache.commons</groupId>
@@ -172,22 +210,81 @@
 						</goals>
 						<configuration>
 							<transformers>
-							 	<!-- 不覆盖Spring的同名文件，而是追加合并同名文件 -->
-			                    <transformer implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
-			                        <resource>META-INF/spring.handlers</resource>
-			                    </transformer>
-			                    <transformer implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
-			                        <resource>META-INF/spring.schemas</resource>
-			                    </transformer>
-			                    <transformer implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
-			                        <resource>META-INF/spring.tooling</resource>
-			                    </transformer>
+								<!-- 不覆盖Spring的同名文件，而是追加合并同名文件 -->
+								<transformer
+									implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
+									<resource>META-INF/spring.handlers</resource>
+								</transformer>
+								<transformer
+									implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
+									<resource>META-INF/spring.schemas</resource>
+								</transformer>
+								<transformer
+									implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
+									<resource>META-INF/spring.tooling</resource>
+								</transformer>
 								<transformer
 									implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
 									<mainClass>com.waylau.lite.App</mainClass>
 								</transformer>
 							</transformers>
 						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+			<!-- gpg sign Plugin -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-gpg-plugin</artifactId>
+				<version>${maven-gpg-plugin.version}</version>
+				<executions>
+					<execution>
+						<id>sign-artifacts</id>
+						<phase>verify</phase>
+						<goals>
+							<goal>sign</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<!-- Nexus Staging Plugin -->
+			<plugin>
+				<groupId>org.sonatype.plugins</groupId>
+				<artifactId>nexus-staging-maven-plugin</artifactId>
+				<version>${nexus-staging-maven-plugin.version}</version>
+				<extensions>true</extensions>
+				<configuration>
+					<serverId>ossrh</serverId>
+					<nexusUrl>https://oss.sonatype.org/</nexusUrl>
+					<autoReleaseAfterClose>true</autoReleaseAfterClose>
+				</configuration>
+			</plugin>
+			<!-- Sources Plugin -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<version>${maven-source-plugin.version}</version>
+				<executions>
+					<execution>
+						<id>attach-sources</id>
+						<goals>
+							<goal>jar-no-fork</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<!-- Javadoc Plugin -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>${maven-javadoc-plugin.version}</version>
+				<executions>
+					<execution>
+						<id>attach-javadocs</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
 					</execution>
 				</executions>
 			</plugin>
