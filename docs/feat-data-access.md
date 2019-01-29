@@ -87,7 +87,7 @@ public class AopConfig {
 ```xml
 <!-- 扫描 MyBatis Mapper 接口所在的包 -->
 <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-  <property name="basePackage" value="com.waylau.lite.mall.mapper" />
+  <property name="basePackage" value="com.waylau.lite.mapper" />
 </bean>
 ```
 
