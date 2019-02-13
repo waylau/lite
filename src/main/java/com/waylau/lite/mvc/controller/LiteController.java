@@ -20,7 +20,7 @@ public class LiteController {
 	
 	@GetMapping
 	public Lite sayHi() {
-		return new Lite("waylau.com", "1.0.0");
+		return new Lite("waylau.com", "1.0.1");
 	}
 
 }
