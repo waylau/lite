@@ -18,6 +18,7 @@ public class CommandLineArgsParser {
 	 * {@link CommandLineArgs} object.
 	 * 
 	 * @param args command line arguments, typically from a {@code main()} method
+	 * @return commandLineArgs
 	 */
 	public static CommandLineArgs parse(String... args) {
 		CommandLineArgs commandLineArgs = new CommandLineArgs();
